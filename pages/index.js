@@ -1,63 +1,108 @@
 import Head from 'next/head'
-
+import React, { useEffect, useState } from 'react'
+import Spinner from '../components/Spinner'
+import { Page, Text, Card, Note, Code, Spacer, Button ,Input} from '@geist-ui/react'
+import useSocket from '../hooks/useSocket'
 export default function Home() {
+  const [showQR, setQR] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [msg, setMsg] = useState(false)
+  const [text,setText] = useState('')
+  const [trigger,setTrigger] = useState('')
+  const [io, setIo] = useState(null)
+
+  const update = () =>{
+    io.emit("newData",{text,trigger})
+  }
+  const start = () => {
+    useSocket().then(io => {
+      setIo(io)
+      io.on("start", () => {
+        io.emit('client', { data: "start" })
+        setLoading(true)
+      })
+      io.on("image", info => {
+        if (info.image) {
+         
+          var myimg = document.getElementById('code');
+
+          var img = new Image();
+
+          img.src = 'data:image/jpeg;base64,' + info.buffer;
+          setQR(true)
+          myimg.src = img.src
+          setLoading(false)
+        }
+      })
+
+      io.on("ans", info => {
+        console.log(info)
+        setLoading(false)
+        if (info === 'isLogged' || info === 'qrReadSuccess')
+          setMsg(true)
+      })
+    })
+  }
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>WhatsApp Bot</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      {!msg ?
+        <main>
+          <img style={{ visibility: !showQR ? "hidden" : "visible" }} id="code" alt="code" />
+          <h1 className="title">
+            Welcome to <a href="https://nextjs.org">WhatsApp Bot!</a>
+          </h1>
+          {loading ? <Spinner /> : <div>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+            {showQR ?
+              <p className="description">
+                To continue Scan QR code with WhatsApp Web
+          </p> :
+              <Text size={22} className="description">
+                Get started by connecting <Button shadow type="secondary" onClick={() => start()}>Click Here</Button>
+              </Text>
+            }
+          </div>
+          }
+        </main>
+        :
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center", alignSelf: "center", alignItems: "center" }}>
+          <Text h1 style={{ textAlign: "center" }} >
+Whatsapper Bot
+</Text>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+<Input
+placeholder='Trigger'
+value={trigger}
+onChange={(e) => setTrigger(e.target.value)}
+/>
+          <Input
+            placeholder='Text'
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+          <Input  size="large" type="date" 
+          />
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          
+<br/>
+<Button shadow type="secondary" onClick={() => update()}>
+            Submit
+</Button>
+
         </div>
-      </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
+
+
+      }
+
 
       <style jsx>{`
         .container {
@@ -205,5 +250,6 @@ export default function Home() {
         }
       `}</style>
     </div>
+
   )
 }
