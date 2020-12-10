@@ -5,7 +5,7 @@ const Globals = require('./Globals');
 const initiate = (socket,msg = 'Hi') => {
 venom
   .create(
-    'new',
+    'aaaaa',
     (base64Qr, asciiQR) => {
       console.log(asciiQR); // Optional to log the QR in the terminal
       var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
