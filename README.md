@@ -33,6 +33,7 @@ docker build . -t wazzup
 > Here you connect wazzup to your whatsapp instance by initating a connection and then scanning the qr code from the whatsapp application on your phone. After your first login, Wazzup will remember your login token and will connect without scanning a qr code.
 
 
+
 ![screely-1660458108604](https://user-images.githubusercontent.com/14940062/184669452-172ef7a8-c047-4eaa-8603-3be0af4de759.png)
 
 
