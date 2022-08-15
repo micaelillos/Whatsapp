@@ -12,7 +12,22 @@
 
 > 👩🏽‍💻 Automate your whatsapp today
 
-# How to run Wazzup ?
+## How to run Wazzup ?
+
+#### Run with docker hub image:
+
+```
+docker run --rm -it -p 8080:80 -p 3000:3000 micael11/wazzup
+```
+
+#### Run with docker local image:
+
+1. Fork the project
+2. Run:
+
+```
+docker build . -t wazzup
+```
 
 ## Wazzup init
 > Here you connect wazzup to your whatsapp instance by initating a connection and then scanning the qr code from the whatsapp application on your phone. After your first login, Wazzup will remember your login token and will connect without scanning a qr code.
