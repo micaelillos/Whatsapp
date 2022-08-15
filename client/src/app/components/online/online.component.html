@@ -1,0 +1,22 @@
+<h1 class="title">Whos Online ?</h1>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
+
+<div *ngIf="contacts.length !== 0; else loading" class="container">
+  <div *ngFor="let contact of contacts" class="card">
+    <img
+      src="{{
+        contact?.profilePicThumbObj?.imgFull ||
+          '/assets/blankProfile.webp'
+      }}"
+      style="width: 100%"
+    />
+    <div class="content">
+      <h4 class="name">
+        <b> {{ contact?.name || "-" }}</b>
+      </h4>
+      <p>{{ contact?.id?._serialized || "" }}</p>
+    </div>
+  </div>
+</div>

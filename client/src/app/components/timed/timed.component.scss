@@ -1,0 +1,44 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container 
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-self: stretch;
+        padding: 40px;
+    }
+
+    .message-field{
+      width: 75%;
+      background-color: lightgrey;
+      border-radius: 10px;
+      margin: 20px;
+      font-size: large;
+      padding: 10px;
+    }
+    ::ng-deep .mat-input-element::placeholder{
+      color: black;
+  }
+  ::ng-deep .mat-input-element::elem{
+      color: black;
+  }
+
+  ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: black !important;
+  } 
+
+  .label{
+    color: #7b1fa2;
+  }
+  
+  // ::ng-deep.mat-form-field-ripple {
+  //  /*change color of underline when focused*/
+  //  background-color: green !important;
+  // }

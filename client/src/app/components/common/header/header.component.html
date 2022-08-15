@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <span style="cursor: pointer" routerLink="">Wazzup</span>
+  <img routerLink="" src="/assets/whatsapp-logo.png" width="30" alt="" />
+
+  <a *ngIf="api.connected" mat-button [routerLink]="'/online'"> Online </a>
+  <a *ngIf="api.connected" mat-button [routerLink]="'/timed'"> Timed </a>
+
+  <span class="spacer"></span>
+  <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>

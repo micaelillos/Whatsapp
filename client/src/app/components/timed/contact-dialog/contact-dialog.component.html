@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Pick Chat From List</h2>
+<mat-dialog-content class="mat-typography">
+  <input
+    matInput
+    placeholder="search"
+    (input)="onSearchChange($event)"
+    type="text"
+  />
+
+  <div *ngFor="let chat of chats">
+    <app-contact-list-item
+      *ngIf="
+        chat.contact.name?.toLowerCase()?.includes(search.toLowerCase()) ||
+        chat.contact.id._serialized.includes(search)
+      "
+      [profilePic]="chat.contact.profilePicThumbObj.imgFull"
+      [chatId]="chat.contact.id._serialized"
+      [name]="chat.contact.name"
+      (click)="onSelect(chat)"
+    >
+    </app-contact-list-item>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="selectedChat?.contact" cdkFocusInitial>
+    Save
+  </button>
+</mat-dialog-actions>

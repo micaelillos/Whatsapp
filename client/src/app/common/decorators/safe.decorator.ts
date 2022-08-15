@@ -1,0 +1,1 @@
+//todo decorator for safe graphql errors

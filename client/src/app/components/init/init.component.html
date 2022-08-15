@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="content">
+    <h1>
+      Welcome to Wazzup
+      <img src="../../../assets/whatsapp-logo.png" width="30" />
+    </h1>
+    <h4>
+      Wazzup connects to your whatsapp, providing you with real time analytics,
+      functionality and more...
+    </h4>
+    <div class="btn-group">
+      <button mat-raised-button color="basic">
+        More
+        <mat-icon>more</mat-icon>
+      </button>
+      <button mat-raised-button color="basic">
+        Demo
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+    <br />
+
+    <button
+      [class.spinner]="loading"
+      [disabled]="loading"
+      [color]="status ? 'warn' : 'accent'"
+      mat-raised-button
+      (click)="start()"
+    >
+      {{ status ? "Disconnect" : "Connect" }}
+    </button>
+  </div>
+
+  <div class="illustation">
+    <img src="../../../assets/ill.png" alt="ill" width="350" />
+  </div>
+</div>
+
+<div>
+  {{ this.logs$ | async }}
+</div>
+
+<div *ngIf="qr && !status" class="qrcode">
+  <h3>Scan Me!</h3>
+  <img src="{{ qr }}" alt="" />
+</div>
+<!-- <app-spinner></app-spinner> -->
+<!-- <div class="result"></div> -->
+
+<!-- <div style="margin: 10px;">
+    <button mat-raised-button color="primary" (click)="start()">Start</button>
+    <button 
+    (click)="clear()"
+    mat-fab color="warn" aria-label="Example icon button with a delete icon">
+        <mat-icon>delete</mat-icon>
+      </button>
+    
+    <button mat-raised-button color="accent" (click)="getOnline()">Get Online</button>
+    </div> -->
+
+<!-- <h3>log box</h3>
+    <div style="white-space: pre-line">
+      {{this.logs$ | async}}
+    </div>
+     -->

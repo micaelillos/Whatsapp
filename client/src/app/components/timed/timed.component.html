@@ -1,0 +1,58 @@
+<div [dir]="this.dir" class="container">
+  <div class="flex">
+    <h1 class="title">Send Timed Message 🕦</h1>
+    <button (click)="toggleDir()" mat-button color="primary">
+      {{ getOppisiteDir() | uppercase }}
+    </button>
+  </div>
+
+  <button (click)="openDialog()" mat-button color="basic">Pick Contact</button>
+
+  <app-contact-list-item *ngIf="selectedContact"
+  [chatId]="selectedContact.id._serialized"
+  [name]="selectedContact.name"
+  [profilePic]="selectedContact.profilePicThumbObj.imgFull"
+  >
+  </app-contact-list-item>
+
+  <mat-form-field
+    floatLabel="always"
+    color="accent"
+    class="message-field"
+    appearance="fill"
+  >
+    <mat-label class="label">Write your message!</mat-label>
+    <textarea
+      color="accent"
+      rows="5"
+      matInput
+      placeholder="Ex. Hey Jhon, Good morning I'm running a bit late..."
+      (input)="onMessageChange($event)"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field color="accent" class="message-field">
+    <mat-label class="label">Pick date!</mat-label>
+    <input 
+    matInput 
+    type="datetime-local" 
+    placeholder="Choose Time" 
+    (input)="onDateChange($event)"
+    />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary"
+  (click)="submit()" 
+  >Submit</button>
+
+<app-timed-list-item
+*ngFor="let timed of scheduledMessages"
+[name]="timed.chatId"
+[date]="timed.time"
+[message]="timed.message"
+>
+
+</app-timed-list-item>
+
+</div>
+
